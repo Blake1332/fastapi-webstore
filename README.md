@@ -148,12 +148,12 @@ Ref: reviews.user_id > users.user_id
 2. User✅
 3. Non-user✅
 
-# API endpoints(See edit)
+# Working Endpoints 
 These endpoints will make the site work. Some will be only avaiable to Administrators.
 ## Users
-1. POST /api/register - Register a new user.
+1. POST /api/register - Register a new user.✅
 2. POST /api/login - Authenticate a user.✅
-3. GET /api/user/{id} - Get user details.<br>✅
+3. GET /api/user/{id} - Get user details.✅
 
 ## Products
 1. GET /api/products - List all products. ((non-user) maybe)✅
