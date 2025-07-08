@@ -72,7 +72,7 @@ Discounts and Promotions: Apply discounts and promotional codes during checkout.
 Checkout Process: Users can proceed to checkout, enter shipping details, and choose payment methods.(Maybe using a paypal I have made to test it?)📌<br>
 TBD: Analytics Dashboard: View sales data and user activity reports. (Will be added in admin Panel)📌<br>
 
-
+# Entities
 Table users {
   user_id integer [primary key]
   username varchar
