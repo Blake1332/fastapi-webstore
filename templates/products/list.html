@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Products - Online Shop{% endblock %}
+
+{% block content %}
+<div class="products-list">
+    <h2>Your Products</h2>
+
+    {% if products %}
+        <div class="products-grid">
+            {% for product in products %}
+                {% if product.seller_id == user.id or user.is_admin %}
+                <div class="product-card">
+                    {% if product.image_url %}
+                        <img src="{{ product.image_url }}" alt="{{ product.name }}">
+                    {% else %}
+                        <div class="no-image">No Image</div>
+                    {% endif %}
+                    <div class="product-details">
+                        <h3>{{ product.name }}</h3>
+                        <p class="description">{{ product.description }}</p>
+                        <p class="price">${{ "%.2f"|format(product.price/100) }}</p>
+                        <p class="stock">Stock: {{ product.stock }}</p>
+                        <p class="category">Category: {{ product.category }}</p>
+                    </div>
+                    <div class="product-actions">
+                        <a href="/products/{{ product.id }}/edit" class="btn secondary">Edit</a>
+                        <a href="/products/{{ product.id }}/delete" class="btn danger">Delete</a>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="no-products">You don't have any products listed yet.</p>
+    {% endif %}
+
+    <div class="add-product">
+        <a href="/products/new" class="btn primary">Add New Product</a>
+    </div>
+</div>
+{% endblock %}

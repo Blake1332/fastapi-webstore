@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block title %}My Wishlist{% endblock %}
+
+{% block content %}
+<div class="wishlist-container">
+    <h2>My Wishlist</h2>
+    
+    {% if wishlist_items %}
+        <div class="wishlist-grid">
+            {% for wishlist_item, product in wishlist_items %}
+                <div class="wishlist-item">
+                    <div class="product-image">
+                        <img src="{{ url_for('static', path='images/no_img.jpg') if not product.image_url or 'smartwatch.jpg' in product.image_url else product.image_url }}" 
+                             alt="{{ product.name }}">
+                    </div>
+                    <div class="product-info">
+                        <h3>{{ product.name }}</h3>
+                        <p class="price">${{ '{:.2f}'.format(product.price / 100) }}</p>
+                        <p class="stock">In Stock: {{ product.stock }}</p>
+                        <div class="actions">
+                            <a href="/product/{{ product.id }}" class="btn primary">View Details</a>
+                            <button class="btn primary" 
+                                    data-product-id="{{ product.id }}"
+                                    data-product-name="{{ product.name }}"
+                                    data-product-price="{{ product.price }}"
+                                    onclick="addToCart(this)">Add to Cart</button>
+                            <form action="/wishlist/remove/{{ product.id }}" method="POST" style="display: inline;">
+                                <button type="submit" class="btn danger">Remove</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="no-items">Your wishlist is empty. Start adding products you like!</p>
+    {% endif %}
+</div>
+
+<style>
+.wishlist-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.wishlist-container h2 {
+    color: #2d3748;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.wishlist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.wishlist-item {
+    background: white;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.wishlist-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+}
+
+.product-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-info {
+    padding: 1.5rem;
+}
+
+.product-info h3 {
+    color: #2d3748;
+    margin-bottom: 0.5rem;
+}
+
+.price {
+    color: #2f855a;
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.stock {
+    color: #718096;
+    margin-bottom: 1rem;
+}
+
+.actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.no-items {
+    text-align: center;
+    color: #718096;
+    padding: 2rem;
+    background: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+</style>
+
+<script src="{{ url_for('static', path='js/cart.js') }}"></script>
+{% endblock %}

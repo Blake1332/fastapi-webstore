@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}2FA Already Enabled - Auth Demo{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <h2>Two-Factor Authentication</h2>
+    
+    <div class="info-message">
+        <p>Two-factor authentication is already enabled for your account.</p>
+    </div>
+    
+    <div class="form-actions">
+        <a href="/dashboard/disable-2fa" class="btn danger">Disable 2FA</a>
+        <a href="/dashboard" class="btn">Back to Dashboard</a>
+    </div>
+</div>
+{% endblock %}

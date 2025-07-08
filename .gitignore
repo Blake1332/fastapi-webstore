@@ -1,0 +1,5 @@
+.env
+archive.txt
+venv
+shop.db
+__pycache__

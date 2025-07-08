@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Search Results - Online Shop{% endblock %}
+
+{% block content %}
+<div class="search-results">
+    <h2>Search Results</h2>
+    
+    {% if query or category %}
+        <p class="search-info">
+            {% if query %}
+                Search term: "{{ query }}"
+            {% endif %}
+            {% if category %}
+                {% if query %} | {% endif %}
+                Category: {{ category }}
+            {% endif %}
+        </p>
+    {% endif %}
+    
+    <div class="products-grid">
+        {% if products %}
+            {% for product in products %}
+                <div class="product-card">
+                    {% if product.image_url %}
+                        <img src="{{ product.image_url }}" alt="{{ product.name }}">
+                    {% else %}
+                        <div class="no-image">No Image</div>
+                    {% endif %}
+                    <div class="product-details">
+                        <h3>{{ product.name }}</h3>
+                        <p class="description">{{ product.description }}</p>
+                        <p class="price">${{ "%.2f"|format(product.price/100) }}</p>
+                        <p class="stock">Stock: {{ product.stock }}</p>
+                        <p class="category">Category: {{ product.category }}</p>
+                    </div>
+                    <div class="product-actions">
+                        <a href="/product/{{ product.id }}" class="btn primary">View Details</a>
+                        {% if user and (user.id == product.seller_id or user.is_admin) %}
+                            <a href="/products/{{ product.id }}/edit" class="btn secondary">Edit</a>
+                            <a href="/products/{{ product.id }}/delete" class="btn danger">Delete</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-results">No products found matching your search criteria.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %} 

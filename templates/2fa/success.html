@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}2FA Enabled - Auth Demo{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <h2>Two-Factor Authentication Enabled</h2>
+    
+    <div class="success-message">
+        <p>Two-factor authentication has been successfully enabled for your account.</p>
+        <p>From now on, you will need to enter a verification code from your authenticator app when logging in.</p>
+    </div>
+    
+    <div class="important-note">
+        <h3>Important:</h3>
+        <p>Make sure to keep your authenticator app or backup codes safe. If you lose access to your authenticator app, you may be unable to log in to your account.</p>
+    </div>
+    
+    <div class="form-actions">
+        <a href="/dashboard" class="btn primary">Back to Dashboard</a>
+        <a href="/dashboard/disable-2fa" class="btn danger">Disable 2FA</a>
+    </div>
+</div>
+{% endblock %}

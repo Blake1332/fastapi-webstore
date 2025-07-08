@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Disable 2FA - Auth Demo{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <h2>Disable Two-Factor Authentication</h2>
+    
+    {% if error %}
+        <div class="error-message">{{ error }}</div>
+    {% endif %}
+    
+    {% if message %}
+        <div class="success-message">{{ message }}</div>
+    {% endif %}
+    
+    <div class="warning-message">
+        <p>Warning: Disabling two-factor authentication will reduce the security of your account.</p>
+    </div>
+    
+    <p>To confirm, please enter the verification code sent to your email:</p>
+    
+    <form method="post" action="/dashboard/disable-2fa" class="auth-form">
+        <div class="form-group">
+            <label for="code">Verification Code:</label>
+            <input type="text" id="code" name="code" required pattern="[0-9]{6}" maxlength="6">
+        </div>
+        <button type="submit" class="btn danger">Disable 2FA</button>
+    </form>
+    
+    <div class="form-actions">
+        <a href="/dashboard" class="btn">Cancel</a>
+    </div>
+</div>
+{% endblock %}

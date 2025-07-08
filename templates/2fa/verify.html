@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Verify 2FA - Auth Demo{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <h2>Verify Two-Factor Authentication</h2>
+    
+    {% if error %}
+        <div class="error-message">{{ error }}</div>
+    {% endif %}
+    
+    <p>Please enter the 6-digit verification code from your authenticator app for user: <strong>{{ username }}</strong></p>
+    
+    <form method="post" action="/verify-2fa" class="auth-form">
+        <div class="form-group">
+            <label for="token">Verification Code:</label>
+            <input type="text" id="token" name="token" required pattern="[0-9]{6}" maxlength="6" autofocus>
+        </div>
+        <button type="submit" class="btn primary">Verify</button>
+    </form>
+    
+    <div class="form-actions">
+        <a href="/login" class="btn">Back to Login</a>
+    </div>
+</div>
+{% endblock %}

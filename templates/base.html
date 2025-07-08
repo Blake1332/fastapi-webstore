@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}FastAPI Online Shop{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="container" id="main-container">
+        <header>
+            <h1>
+                {% if user %}
+                Welcome back, {{ user.username }}!
+                {% else %}
+                FastAPI Online Shop
+                {% endif %}
+            </h1>
+            <h1>
+                {% if user %}
+                <div class="user-actions">
+                    <a href="/cart" class="btn primary">View Cart <span id="cart-count" class="cart-count"></span></a>
+                    <button onclick="handleOrders()" class="btn secondary">My Orders</button>
+                    <a href="/wishlist" class="btn secondary">Wishlist</a>
+                </div>
+                {% else %}
+                <div class="guest-actions">
+                    <a href="/cart" class="btn primary">View Cart <span id="cart-count" class="cart-count"></span></a>
+                    <a href="/login" class="btn primary">Login</a>
+                    <a href="/register" class="btn secondary">Register</a>
+                </div>
+                {% endif %}
+            </h1>
+            <p style="color: #5a5959; font-size: 0.9rem;"></p>
+            <nav>
+                <a href="/">Shop</a>
+                {% if user %}
+                <a href="/dashboard">Profile</a>
+                <a href="/logout">Logout</a>
+                {% endif %}
+            </nav>
+            <div class="search-bar">
+                <form action="/search" method="get" class="search-form">
+                    <input type="text" name="query" placeholder="Search products..." value="{{ request.query_params.get('query', '') }}">
+                    <select name="category">
+                        <option value="">All Categories</option>
+                        <option value="Electronics" {% if request.query_params.get('category') == 'Electronics' %}selected{% endif %}>Electronics</option>
+                        <option value="Home Appliances" {% if request.query_params.get('category') == 'Home Appliances' %}selected{% endif %}>Home Appliances</option>
+                        <option value="Fitness" {% if request.query_params.get('category') == 'Fitness' %}selected{% endif %}>Fitness</option>
+                        <option value="Clothing" {% if request.query_params.get('category') == 'Clothing' %}selected{% endif %}>Clothing</option>
+                        <option value="Books" {% if request.query_params.get('category') == 'Books' %}selected{% endif %}>Books</option>
+                        <option value="Other" {% if request.query_params.get('category') == 'Other' %}selected{% endif %}>Other</option>
+                    </select>
+                    <button type="submit" class="btn primary">Search</button>
+                </form>
+            </div>
+        </header>
+        
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+        
+        <footer>
+            <div class="container">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <p style="color: #2d3748; margin-bottom: 0.5rem;">Brayden Schneider 300200395</p>
+                        <p style="color: #718096;">Comp351 Assignment 3/4/5</p>
+                    </div>
+                    <div style="text-align: right">
+                        <p style="color: #718096;">&copy; 2025. All rights reserved.</p>
+                        <p style="color: #718096; font-size: 0.875rem; margin-top: 0.25rem;">
+                            <a href="" style="color: #4a5568; margin-right: 1rem;">This project does not store any user data when deleted. Data is only stored in the local database.</a>
+                            <a href="https://opensource.org/license/mit" style="color: #4a5568;">MIT License</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+    // Update cart count on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        const cart = JSON.parse(localStorage.getItem('cart') || '{}');
+        const totalItems = Object.values(cart).reduce((sum, item) => sum + item.quantity, 0);
+        const cartCount = document.getElementById('cart-count');
+        if (cartCount) {
+            cartCount.textContent = totalItems > 0 ? `(${totalItems})` : '';
+        }
+    });
+
+    // Add new function for orders
+    function handleOrders() {
+        alert("Not implemented yet");
+    }
+    </script>
+</body>
+</html>

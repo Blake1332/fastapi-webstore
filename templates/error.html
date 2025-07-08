@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Error - Auth Demo{% endblock %}
+
+{% block content %}
+<div class="error-container">
+    <div class="error-code">{{ status_code }}</div>
+    <div class="error-message">{{ error }}</div>
+    
+    <div class="error-actions">
+        <a href="/" class="btn primary">Back to Home</a>
+    </div>
+</div>
+{% endblock %}

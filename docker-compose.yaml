@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  auth-app:
+    build: .
+    container_name: fastapi-e-shop
+    ports:
+      - "8091:8000"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - GITLAB_CLIENT_ID=${GITLAB_CLIENT_ID}
+      - GITLAB_CLIENT_SECRET=${GITLAB_CLIENT_SECRET}
+      - GITLAB_DOMAIN=https://sc-gitlab.ufv.ca

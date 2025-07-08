@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Auth Demo{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <h2>User Dashboard</h2>
+    
+    <div class="user-info-card">
+        <h3>User Information</h3>
+        <div class="user-details">
+            <p><strong>Username:</strong> {{ user.username }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Auth Provider:</strong> {{ user.auth_provider }}</p>
+        </div>
+    </div>
+    
+    <div class="dashboard-cards">
+        <div class="dashboard-card">
+            <h3>Product Management</h3>
+            <p>Create, edit, and manage your products.</p>
+            {% if user.is_admin %}
+                <a href="/admin/products" class="btn primary">Manage Products</a>
+            {% else %}
+                <a href="/products" class="btn primary">Manage Products</a>
+            {% endif %}
+        </div>
+        
+        <div class="dashboard-card">
+            <h3>Two-Factor Authentication</h3>
+            <p>Enhance your account security with 2FA.</p>
+            {% if user.auth_provider == "local" %}
+                <a href="/dashboard/setup-2fa" class="btn primary">Manage 2FA</a>
+            {% else %}
+                <p><small>2FA is only available for local accounts</small></p>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="dashboard-actions">
+        <a href="/logout" class="btn danger">Logout</a>
+    </div>
+</div>
+{% endblock %}

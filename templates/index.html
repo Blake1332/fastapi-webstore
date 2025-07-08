@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Home - E-Commerce Shop{% endblock %}
+
+{% block content %}
+
+<p style="text-align: center; color: #5a5959; font-size: 0.9rem;">Current time: {{ now.strftime('%I:%M %p') }}</p>
+
+<div class="products-section">
+    <h3>Our Products</h3>
+    <div class="product-grid">
+        {% if products %}
+            {% for product in products %}
+            <div class="product-card">
+                <img src="{{ url_for('static', path='images/no_img.jpg') if not product.image_url or 'smartwatch.jpg' in product.image_url else product.image_url }}" alt="{{ product.name }}">
+                <h4>{{ product.name }}</h4>
+                <p>{{ product.description }}</p>
+                <p class="price">${{ '{:.2f}'.format(product.price / 100) }}</p>
+                <p class="stock">In Stock: {{ product.stock }}</p>
+                <p class="category">Category: {{ product.category }}</p>
+                <a href="/product/{{ product.id }}" class="btn primary">View Details</a>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-products">No products are currently available.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

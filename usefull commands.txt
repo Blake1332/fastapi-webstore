@@ -1,0 +1,33 @@
+#Start venv
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt 
+uvicorn main:app
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+
+
+# List containers
+docker ps
+
+# Stop and remove a specific container
+docker stop my-app
+docker rm my-app
+
+
+#Git Control
+git init
+#Set source
+git remote add origin {add link here}
+
+#Force push (Make sure to enable in gitlab settings!)
+git add .
+git commit -m "Inital Commit"
+git push -u origin main --force
+
+
+#Make a empty data folder on github
+In gitignore make sure 'data/shop.db'
+mkdir -p data 
+touch data/.gitkeep 
+git add data/.gitkeep
+git commit -m "empty data folder for database storage location"

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Setup 2FA - Auth Demo{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <h2>Set Up Two-Factor Authentication</h2>
+    
+    {% if error %}
+        <div class="error-message">{{ error }}</div>
+    {% endif %}
+    
+    {% if not qr_code %}
+        <script>
+            window.location.href = "/dashboard/setup-2fa";
+        </script>
+    {% else %}
+        <p>Scan this QR code with your authenticator app (like Google Authenticator, Authy, or Microsoft Authenticator):</p>
+        
+        <div class="qr-code-container">
+            <img src="{{ qr_code }}" alt="2FA QR Code">
+        </div>
+        
+        <p>Or manually enter this secret key in your app:</p>
+        <div class="secret-key">{{ secret }}</div>
+        
+        <form method="post" action="/dashboard/confirm-2fa" class="auth-form">
+            <div class="form-group">
+                <label for="token">Enter the 6-digit verification code from your app:</label>
+                <input type="text" id="token" name="token" required pattern="[0-9]{6}" maxlength="6">
+            </div>
+            <button type="submit" class="btn primary">Verify and Enable 2FA</button>
+        </form>
+        
+        <div class="form-actions">
+            <a href="/dashboard" class="btn">Cancel</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

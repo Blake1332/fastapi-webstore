@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Setup Email 2FA - Auth Demo{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <h2>Set Up Email Two-Factor Authentication</h2>
+    
+    {% if error %}
+        <div class="error-message">{{ error }}</div>
+    {% endif %}
+    
+    <p>A verification code has been sent to your email address. Please enter the code below to enable two-factor authentication.</p>
+    
+    <form method="post" action="/dashboard/confirm-2fa" class="auth-form">
+        <div class="form-group">
+            <label for="code">Enter the 6-digit verification code from your email:</label>
+            <input type="text" id="code" name="code" required pattern="[0-9]{6}" maxlength="6">
+        </div>
+        <button type="submit" class="btn primary">Verify and Enable 2FA</button>
+    </form>
+    
+    <div class="form-actions">
+        <a href="/dashboard" class="btn">Cancel</a>
+    </div>
+</div>
+{% endblock %} 
