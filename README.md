@@ -1,14 +1,14 @@
 ```
 # Clone the repository
 git clone <repository-url>
-cd project
+cd fastapi-webstore
 
-# Copy environment variables example and edit with your GitLab OAuth credentials
+# Copy environment variables example and edit with your GitHub/GitLab OAuth credentials
 cp env.example .env
 #Make sure to create a goggle app password if you want to use email 2fa, its just like the gitlab one
 #https://myaccount.google.com/apppasswords
 
-# Start the application
+# Make sure python3 and docker are installed! Start the application
 docker-compose up -d
 ```
 The application will be available at http://localhost:8091
